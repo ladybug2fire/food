@@ -2,7 +2,7 @@
   <el-row>
     <el-col :span="8" v-for="(o) in 10" :key="o">
       <el-card :body-style="{ padding: '0px'}" class="food-item">
-        <img src="../assets/img/danhuang.jpg" class="image">
+        <img src="../assets/img/danhuang.jpg" class="image" @click="seeDetail">
         <div style="padding: 14px;">
           <span>好吃的汉堡</span>
           <div class="bottom clearfix">
@@ -19,6 +19,11 @@ export default {
   data(){
     return {
       currentDate: new Date(),
+    }
+  },
+  methods:{
+    seeDetail(){
+      this.$router.replace('/detail')
     }
   }
 };
@@ -47,6 +52,7 @@ export default {
   display: block;
   object-fit: cover;
   height: 150px;
+  cursor: pointer;
 }
 
 .clearfix:before,

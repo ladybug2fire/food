@@ -5,11 +5,14 @@ import Home from '@/pages/Home'
 import Login from '@/pages/login'
 import Register from '@/pages/register'
 import Profile from '@/pages/profile'
-
+import Favorite from '@/pages/favorite'
+import Order from '@/pages/order'
+import Detail from '@/pages/Detail'
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    { path: '/', redirect: '/home' },
     {
       path: '/',
       name: 'Layout',
@@ -31,6 +34,18 @@ export default new Router({
           path: 'profile',
           name: 'profile',
           component: Profile
+        }, {
+          path: 'favorite',
+          name: 'favorite',
+          component: Favorite
+        }, {
+          path: 'order',
+          name: 'order',
+          component: Order
+        }, {
+          path: 'detail',
+          name: 'detail',
+          component: Detail
         }
       ]
     }

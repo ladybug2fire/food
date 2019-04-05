@@ -4,8 +4,8 @@
       <div class="menu-item">首页</div>
       <div class="menu-item active" @mouseover="hoverable=true" @mouseout="hoverable=false">菜谱大全</div>
       <div class="menu-item" @mouseover="hoverable=true" @mouseout="hoverable=false">饮食健康</div>
-      <div class="menu-item" @mouseover="hoverable=true" @mouseout="hoverable=false">美食菜单</div>
-      <div class="menu-item" @mouseover="hoverable=true" @mouseout="hoverable=false">菜市场</div>
+      <div class="menu-item">美食菜单</div>
+      <div class="menu-item">菜市场</div>
     </div>
     <div class="detail-items" v-show="hoverable"></div>
   </div>

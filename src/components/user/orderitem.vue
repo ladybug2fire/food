@@ -1,6 +1,6 @@
 <template>
     <div>
-        菜单详情
+        <div>订单编号</div>
     </div>
 </template>
 
@@ -10,6 +10,6 @@
     }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 </style>

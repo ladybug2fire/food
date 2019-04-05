@@ -1,15 +1,19 @@
 <template>
   <div>
     <my-header></my-header>
+    <main-menu></main-menu>
     <router-view/>
   </div>
 </template>
 
 <script>
 import MyHeader from "@/components/Header";
+import MainMenu from "@/components/MainMenu";
+
 export default {
   components: {
-    MyHeader
+    MyHeader,
+    MainMenu
   }
 };
 </script>

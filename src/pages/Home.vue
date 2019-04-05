@@ -1,6 +1,5 @@
 <template>
   <div>
-      <main-menu></main-menu>
       <div class="slide-container">
         <slide />
       </div>
@@ -13,14 +12,12 @@
 
 <script>
 import MainHeader from '@/components/Header.vue'
-import MainMenu from '@/components/MainMenu.vue'
 import Slide from '@/components/Slide.vue'
 import Food from '@/components/Food.vue'
 
   export default {
     components:{
       MainHeader,
-      MainMenu,
       Slide,
       Food,
     }

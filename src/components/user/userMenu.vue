@@ -25,7 +25,7 @@ export default {
           url: "/order"
         },
         {
-          label: "我的收藏",
+          label: "我的菜单",
           url: "/favorite"
         }
       ]
@@ -34,7 +34,7 @@ export default {
   methods: {
     jump(url) {
       console.log(url);
-      this.$router.push(url);
+      this.$router.replace(url);
     }
   }
 };

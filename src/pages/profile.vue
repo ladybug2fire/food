@@ -1,13 +1,7 @@
 <template>
   <div>
-    <div class="profile-breadcrumb">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>
-          <a href="/profile">个人中心</a>
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>我的信息</el-breadcrumb-item>
-      </el-breadcrumb>
+    <div>
+      <my-bread-crumb :routes="routes"/>
       <el-form
         size="small"
         :model="ruleForm"
@@ -59,9 +53,18 @@
 </template>
 
 <script>
+import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
 export default {
+  components: {
+    myBreadCrumb
+  },
   data() {
     return {
+      routes: [
+        { name: "首页", url: "/home" },
+        { name: "个人中心", url: "/profile" },
+        { name: "基础信息" }
+      ],
       ruleForm: {
         name: "",
         region: "",
@@ -130,13 +133,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.profile-breadcrumb {
-  margin-top: 20px;
-  margin-left: 20px;
-}
 .profile-edit {
   width: 50vw;
-  margin-top: 20px;
   text-align: left;
 }
 </style>
