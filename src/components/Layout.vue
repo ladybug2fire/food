@@ -8,7 +8,7 @@
 
 <script>
 import MyHeader from "@/components/Header";
-import MainMenu from "@/components/MainMenu";
+import MainMenu from "@/components/menu/MainMenu";
 
 export default {
   components: {
