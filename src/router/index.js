@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/components/Layout'
-import Home from '@/pages/Home'
+import Home from '@/pages/home'
 import Login from '@/pages/login'
 import Register from '@/pages/register'
 import Profile from '@/pages/profile'
 import Favorite from '@/pages/favorite'
 import Order from '@/pages/order'
-import Detail from '@/pages/Detail'
+import Detail from '@/pages/detail'
 Vue.use(Router)
 
 export default new Router({

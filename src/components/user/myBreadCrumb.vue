@@ -14,6 +14,6 @@
 
 <style scoped>
 .my-breadcrumb {
-  margin: 20px;
+  margin: 20px 20px 20px 0;
 }
 </style>

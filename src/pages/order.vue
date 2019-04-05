@@ -74,6 +74,6 @@ export default {
 
 <style lang="less" scoped>
 .order-list {
-  padding: 0 20px 20px 20px;
+  padding: 0 20px 20px 0px;
 }
 </style>

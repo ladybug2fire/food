@@ -2,7 +2,9 @@
   <div>
     <my-header></my-header>
     <main-menu></main-menu>
-    <router-view/>
+    <div class="main-section">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -18,5 +20,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+.main-section{
+  padding: 0 10vw;
+}
 </style>

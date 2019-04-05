@@ -26,7 +26,6 @@ import Food from '@/components/Food.vue'
 
 <style lang="less" scoped>
 .card-container{
-    padding: 0 10px;
     .section-title{
         color: #c0ae7d;
     }
