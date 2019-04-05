@@ -1,17 +1,48 @@
 <template>
   <div class="food-header">
-        <el-input class="search-input" placeholder="请输入菜谱/食材/菜单/作者">
-          <template slot="append">搜索</template>
-        </el-input>
-        <div class="login-section">
-            <div>登入</div>
-            <div>注册</div>
+    <div class="logo">
+      <router-link to="home">
+        <img src="../assets/logo.png" alt>
+      </router-link>
+    </div>
+    <el-input class="search-input" placeholder="请输入菜谱/食材/菜单/作者">
+      <template slot="append">
+        <div @click="search">搜索</div>
+      </template>
+    </el-input>
+    <div class="login-section">
+      <template v-if="!username">
+        <div>
+          <router-link to="login">登录</router-link>
         </div>
+        <div>
+          <router-link to="register">注册</router-link>
+        </div>
+      </template>
+      <template v-else>
+        <user-menu :username="username" />
+      </template>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+import userMenu from '@/components/user/userMenu'
+export default {
+  components:{
+    userMenu,
+  },
+  computed: {
+    username() {
+      return this.$store.getters.username;
+    }
+  },
+  methods: {
+    search() {
+      console.log("do search");
+    },
+  }
+};
 </script>
 
 <style lang="less">
@@ -23,32 +54,61 @@ export default {};
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  .search-input{
+  justify-content: space-between;
+  .logo {
+    margin-left: 60px;
+    color: white;
+    font-weight: bolder;
+    img {
+      height: 50px;
+      cursor: pointer;
+    }
+  }
+  .search-input {
     width: 430px;
     height: 36px;
     box-sizing: border-box;
     .el-input-group__append {
-        color: white !important;
-        width: 80px;
-        background-color: #b4010f !important;
+      color: white !important;
+      width: 80px;
+      background-color: #b4010f !important;
+      cursor: pointer;
+      span {
+        widows: 100%;
+      }
     }
   }
-  .login-section{
-      margin-left: 100px;
+  .login-section {
+    margin-right: 100px;
+    color: white;
+    display: flex;
+    a {
       color: white;
-      display: flex;
-      div{
-          height: 28px;
-          line-height: 28px;
-          font-size: 12px;
-          margin: 0 5px;
-          border-radius: 4px;
-          padding: 0 10px;
-          &:hover{
-              background: rgba(0,0,0,0.3);
-          }
+      text-decoration: none;
+    }
+    div {
+      cursor: pointer;
+      height: 28px;
+      line-height: 28px;
+      font-size: 12px;
+      margin: 0 5px;
+      border-radius: 4px;
+      padding: 0 10px;
+      &:hover {
+        background: rgba(0, 0, 0, 0.3);
       }
+    }
+    .username {
+      cursor: pointer;
+      font-weight: bolder;
+      font-size: 16px;
+      color: white;
+    }
+    .user-nickname {
+      a {
+        text-decoration: none;
+      }
+    }
   }
 }
 </style>
