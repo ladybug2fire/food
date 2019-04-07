@@ -13,6 +13,7 @@ import FavorDetail from '@/pages/favordetail'
 import Shop from '@/pages/shop'
 import MenusList from '@/pages/menulist'
 import ShopCart from '@/pages/shopcart'
+import store from '@/stores/index'
 Vue.use(Router)
 
 export default new Router({
@@ -22,6 +23,10 @@ export default new Router({
       path: '/',
       name: 'Layout',
       component: Layout,
+      beforeEnter: (to, from, next) => {
+        store.dispatch('getUser')
+        next()
+      },
       children: [
         {
           path: 'login',

@@ -1,3 +1,4 @@
+import {getUser} from '@/api/user'
 export default {
   state: {
     userInfo: {
@@ -9,7 +10,11 @@ export default {
       state.userInfo = {}
     }
   },
-  actions: { },
+  actions: {
+    getUser ({commit, state}, payload) {
+      getUser()
+    }
+  },
   getters: {
     username (state) {
       return state.userInfo.username
