@@ -8,6 +8,8 @@ import Profile from '@/pages/profile'
 import Favorite from '@/pages/favorite'
 import Order from '@/pages/order'
 import Detail from '@/pages/detail'
+import Newpost from '@/pages/newpost'
+import FavorDetail from '@/pages/favordetail'
 Vue.use(Router)
 
 export default new Router({
@@ -46,6 +48,14 @@ export default new Router({
           path: 'detail',
           name: 'detail',
           component: Detail
+        }, {
+          path: 'newpost',
+          name: 'newpost',
+          component: Newpost
+        }, {
+          path: 'favordetail',
+          name: 'favordetail',
+          component: FavorDetail
         }
       ]
     }

@@ -27,6 +27,14 @@ export default {
         {
           label: "我的菜单",
           url: "/favorite"
+        },
+        {
+          label: "发布菜谱",
+          url: "/newpost"
+        },
+        {
+          label: "退出",
+          url: "/logout"
         }
       ]
     };

@@ -1,15 +1,20 @@
 <template>
   <div>
     <my-bread-crumb :routes="routes"/>
-    
+    <el-button type="primary" size="small" @click="createNew">创建新菜单</el-button>
+    <div class="favor-container" @click="jumpDetail">
+      <menu-group></menu-group>
+    </div>
   </div>
 </template>
 
 <script>
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
+import menuGroup from "@/components/MenuGroup"
 export default {
   components: {
-    myBreadCrumb
+    myBreadCrumb,
+    menuGroup
   },
   data() {
     return {
@@ -19,9 +24,20 @@ export default {
         { name: "我的菜单" }
       ]
     };
+  },
+  methods:{
+    jumpDetail(){
+      this.$router.replace('/favordetail')
+    },
+    createNew(){
+      
+    }
   }
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+.favor-container{
+  cursor: pointer;
+}
 </style>

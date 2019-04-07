@@ -5,7 +5,7 @@
       </div>
       <div class="card-container">
         <h2 class="section-title">新秀菜谱</h2>
-        <food />
+        <food :list="20"/>
       </div>
   </div>
 </template>

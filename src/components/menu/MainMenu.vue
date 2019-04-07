@@ -1,11 +1,11 @@
 <template>
   <div class="main-menu" >
     <div class="menu-items">
-      <div class="menu-item" @click="jump('/home')">首页</div>
-      <menu-item title="菜谱大全" />
-      <menu-item title="饮食健康" />
-      <div class="menu-item" @click="jump('/menus')">美食菜单</div>
-      <div class="menu-item" @click="jump('/shop')">菜市场</div>
+      <div :class="['menu-item', {'active': path === '/home'}]" @click="jump('/home')">首页</div>
+      <menu-item :active="path === '/foodlist'" title="菜谱大全" />
+      <menu-item :active="path === '/menulist'" title="饮食健康" />
+      <div :class="['menu-item', {'active': path === '/menus'}]" @click="jump('/menus')">美食菜单</div>
+      <div :class="['menu-item', {'active': path === '/shop'}]" @click="jump('/shop')">菜市场</div>
     </div>
   </div>
 </template>
@@ -22,10 +22,18 @@ export default {
       fitShow: false,
     };
   },
+  computed:{
+    path(){
+      return this.$route.path;
+    }
+  },
   methods:{
     jump(url){
       this.$router.replace(url);
     }
+  },
+  mounted(){
+    console.log(this.$route.path)
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-col :span="8" v-for="(o) in 10" :key="o">
+    <el-col :span="8" v-for="(o) in list" :key="o">
       <el-card :body-style="{ padding: '0px'}" class="food-item">
         <img src="../assets/img/danhuang.jpg" class="image" @click="seeDetail">
         <div style="padding: 14px;">
@@ -16,6 +16,7 @@
 </template>
 <script>
 export default {
+  props:['list'],
   data(){
     return {
       currentDate: new Date(),
