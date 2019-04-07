@@ -12,7 +12,11 @@ export default {
   },
   actions: {
     getUser ({commit, state}, payload) {
-      getUser()
+      getUser().then(function (response) {
+        console.log(response)
+      }).catch(function (error) {
+        console.log(error)
+      })
     }
   },
   getters: {

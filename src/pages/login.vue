@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { login } from "@/api/user";
 export default {
   data() {
     return {
@@ -31,7 +32,13 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log("submit!");
+      login(this.form).then(res => {
+        let data = res.data;
+        this.$message({
+          message: data.msg,
+          type: data.code === 200 ? "success" : "error"
+        });
+      });
     }
   }
 };

@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { register } from "@/api/user";
 export default {
   data() {
     return {
@@ -34,7 +35,17 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log("submit!");
+      register(this.form)
+        .then(res => {
+          let data = res.data;
+          this.$message({
+            message: data.msg,
+            type: data.code === 200 ? "success" : "error"
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
