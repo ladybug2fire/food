@@ -4,7 +4,11 @@ export default {
       username: '星期三的猫'
     }
   },
-  mutations: { },
+  mutations: {
+    logout (state) {
+      state.userInfo = {}
+    }
+  },
   actions: { },
   getters: {
     username (state) {

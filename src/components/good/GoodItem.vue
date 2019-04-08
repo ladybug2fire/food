@@ -7,7 +7,7 @@
           <span>好吃的汉堡</span>
           <div class="bottom clearfix">
             <time class="time">{{ currentDate }}</time>
-            <el-button type="text" class="button">立即购买</el-button>
+            <el-button type="text" class="button" @click="addGood">立即购买</el-button>
           </div>
         </div>
       </el-card>
@@ -25,6 +25,12 @@ export default {
   methods:{
     seeDetail(){
       this.$router.replace('/detail')
+    },
+    addGood(){
+      this.$store.commit('addGood', {
+        type: 'he',
+        count: 1,
+      })
     }
   }
 };

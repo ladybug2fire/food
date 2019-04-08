@@ -22,7 +22,7 @@ export default {
         },
         {
           label: "我的订单",
-          url: "/order"
+          url: "/orderlist"
         },
         {
           label: "我的菜单",
@@ -45,8 +45,12 @@ export default {
   },
   methods: {
     jump(url) {
-      console.log(url);
-      this.$router.replace(url);
+      if (url === "/logout") {
+        this.$store.commit('logout')
+        this.$router.replace('/home')
+      } else {
+        this.$router.replace(url);
+      }
     }
   }
 };

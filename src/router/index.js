@@ -6,7 +6,7 @@ import Login from '@/pages/login'
 import Register from '@/pages/register'
 import Profile from '@/pages/profile'
 import Favorite from '@/pages/favorite'
-import Order from '@/pages/order'
+import Orderlist from '@/pages/orderlist'
 import Detail from '@/pages/detail'
 import Newpost from '@/pages/newpost'
 import FavorDetail from '@/pages/favordetail'
@@ -44,9 +44,9 @@ export default new Router({
           name: 'favorite',
           component: Favorite
         }, {
-          path: 'order',
-          name: 'order',
-          component: Order
+          path: 'orderlist',
+          name: 'orderlist',
+          component: Orderlist
         }, {
           path: 'detail',
           name: 'detail',
@@ -74,6 +74,5 @@ export default new Router({
         }
       ]
     }
-
   ]
 })
