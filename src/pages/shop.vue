@@ -1,27 +1,26 @@
 <template>
   <div>
     <my-bread-crumb :routes="routes"/>
-    <food :list="8"/>
+    <good-item :list="8"/>
   </div>
 </template>
 
 <script>
 /**
- * 菜单详情
+ * 商城
  */
-import Food from "@/components/Food";
+import GoodItem from "@/components/good/GoodItem";
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
 export default {
   components: {
     myBreadCrumb,
-    Food
+    GoodItem
   },
   data() {
     return {
-      routes:[
+      routes: [
         { name: "首页", url: "/home" },
-        { name: "我的菜单", url: "/favorite" },
-        { name: "菜单详情" }
+        { name: "商城"},
       ]
     };
   }

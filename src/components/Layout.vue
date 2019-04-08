@@ -5,17 +5,20 @@
     <div class="main-section">
       <router-view/>
     </div>
+    <CartBtn />
   </div>
 </template>
 
 <script>
 import MyHeader from "@/components/Header";
 import MainMenu from "@/components/menu/MainMenu";
+import CartBtn from '@/components/good/CartBtn'
 
 export default {
   components: {
     MyHeader,
-    MainMenu
+    MainMenu,
+    CartBtn
   }
 };
 </script>

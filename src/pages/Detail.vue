@@ -10,6 +10,9 @@
 </template>
 
 <script>
+/**
+ * 菜谱详情
+ */
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
 export default {
   components: {

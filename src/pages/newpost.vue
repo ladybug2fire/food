@@ -50,6 +50,9 @@
 </template>
 
 <script>
+/**
+ * 新建菜谱
+ */
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
 export default {
   components: {

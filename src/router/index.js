@@ -10,6 +10,9 @@ import Order from '@/pages/order'
 import Detail from '@/pages/detail'
 import Newpost from '@/pages/newpost'
 import FavorDetail from '@/pages/favordetail'
+import Shop from '@/pages/shop'
+import MenusList from '@/pages/menulist'
+import ShopCart from '@/pages/shopcart'
 Vue.use(Router)
 
 export default new Router({
@@ -53,9 +56,21 @@ export default new Router({
           name: 'newpost',
           component: Newpost
         }, {
+          path: 'shop',
+          name: 'shop',
+          component: Shop
+        }, {
           path: 'favordetail',
-          name: 'favordetail',
+          name: '菜单详情',
           component: FavorDetail
+        }, {
+          path: 'menus',
+          name: '美食菜单',
+          component: MenusList
+        }, {
+          path: 'shopcart',
+          name: '购物车',
+          component: ShopCart
         }
       ]
     }

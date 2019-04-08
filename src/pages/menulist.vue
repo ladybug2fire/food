@@ -10,7 +10,7 @@
 
 <script>
 /**
- * 我的菜单/我的收藏
+ * 美食菜单就是共享的菜单合集
  */
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
 import menuGroup from "@/components/MenuGroup"

@@ -33,6 +33,10 @@ export default {
           url: "/newpost"
         },
         {
+          label: "菜篮子",
+          url: "/shopcart"
+        },
+        {
           label: "退出",
           url: "/logout"
         }

@@ -20,8 +20,7 @@ export default {
     return {
       routes:[
         { name: "首页", url: "/home" },
-        { name: "我的菜单", url: "/favorite" },
-        { name: "菜单详情" }
+        { name: "菜篮子" },
       ]
     };
   }
