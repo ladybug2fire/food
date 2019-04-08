@@ -1,36 +1,48 @@
 <template>
-  <el-row>
-    <el-col :span="8" v-for="(o) in list" :key="o">
-      <el-card :body-style="{ padding: '0px'}" class="food-item">
-        <img src="../assets/img/danhuang.jpg" class="image" @click="seeDetail">
-        <div style="padding: 14px;">
-          <span>好吃的汉堡</span>
-          <div class="bottom clearfix">
-            <time class="time">{{ currentDate }}</time>
-            <el-button type="text" class="button">操作按钮</el-button>
+  <div>
+    <el-row v-if="list">
+      <el-col :span="8" v-for="(o) in list" :key="o._id">
+        <el-card :body-style="{ padding: '0px'}" class="food-item">
+          <img :src="HOST+o.picUrl" class="image" @click="seeDetail(o)">
+          <div style="padding: 14px;">
+            <span>{{o.foodname}}</span>
+            <div class="bottom clearfix">
+              <time class="time">{{ o.addTime }}</time>
+              <el-button type="text" class="button">查看详情</el-button>
+            </div>
           </div>
-        </div>
-      </el-card>
-    </el-col>
-  </el-row>
+        </el-card>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 <script>
+import {HOST} from '../../config/myconfig'
 export default {
-  props:['list'],
-  data(){
+  props: ["list"],
+  data() {
     return {
-      currentDate: new Date(),
+      HOST,
+      currentDate: new Date()
+    };
+  },
+  methods: {
+    seeDetail(o) {
+      this.$router.push({
+        path: "/detail",
+        query: {
+          id: o._id
+        }
+      });
     }
   },
-  methods:{
-    seeDetail(){
-      this.$router.replace('/detail')
-    }
+  mounted() {
+    console.log(this.list);
   }
 };
 </script>
 <style>
-.food-item{
+.food-item {
   margin: 10px;
 }
 .time {

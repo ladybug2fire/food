@@ -24,7 +24,6 @@ export default new Router({
       name: 'Layout',
       component: Layout,
       beforeEnter: (to, from, next) => {
-        store.dispatch('getUser')
         next()
       },
       children: [

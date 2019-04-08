@@ -38,6 +38,10 @@ export default {
           message: data.msg,
           type: data.code === 200 ? "success" : "error"
         });
+        if(data.code === 200){
+          this.$store.commit('logInfo', data.data);
+        }
+        this.$router.replace('/home')
       });
     }
   }

@@ -15,3 +15,7 @@ export const register = function (params) {
 export const login = function (params) {
   return axios.post(`${HOST}/api/login`, params)
 }
+
+export const updateUser = function (params) {
+  return axios.post(`${HOST}/api/updateUser`, params)
+}

@@ -1,4 +1,3 @@
-import {getUser} from '@/api/user'
 export default {
   state: {
     userInfo: {
@@ -8,20 +7,19 @@ export default {
   mutations: {
     logout (state) {
       state.userInfo = {}
+    },
+    logInfo (state, payload) {
+      state.userInfo = payload
     }
   },
   actions: {
-    getUser ({commit, state}, payload) {
-      getUser().then(function (response) {
-        console.log(response)
-      }).catch(function (error) {
-        console.log(error)
-      })
-    }
   },
   getters: {
     username (state) {
       return state.userInfo.username
+    },
+    userInfo (state) {
+      return state.userInfo
     }
   }
 }

@@ -4,45 +4,58 @@
       <my-bread-crumb :routes="routes"/>
       <el-form
         size="small"
-        :model="ruleForm"
-        :rules="rules"
-        ref="ruleForm"
+        :model="form"
+        ref="form"
         label-width="100px"
         class="profile-edit"
       >
-        <el-form-item label="菜名" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
+        <el-form-item label="菜名" prop="foodname">
+          <el-input v-model="form.foodname"></el-input>
         </el-form-item>
-        <el-form-item label="类别" prop="resource">
-          <el-radio-group v-model="ruleForm.resource">
-            <el-radio label="男"></el-radio>
-            <el-radio label="女"></el-radio>
-            <el-radio label="保密"></el-radio>
+        <el-form-item label="头图">
+          <my-upload :model="form" prop="picUrl" />
+        </el-form-item>
+        <el-form-item label="难度" prop="diffculty">
+          <el-radio-group v-model="form.diffculty">
+            <el-radio label="困难"></el-radio>
+            <el-radio label="容易"></el-radio>
+            <el-radio label="一般"></el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="标签" prop="region">
-          <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
+        <!-- <el-form-item label="标签" prop="region">
+          <el-select v-model="form.region" placeholder="请选择活动区域">
             <el-option label="区域一" value="shanghai"></el-option>
             <el-option label="区域二" value="beijing"></el-option>
           </el-select>
+        </el-form-item> -->
+        <el-form-item label="制作时长" prop="cookTime">
+          <el-input v-model="form.cookTime" placeholder="制作时长"></el-input>
         </el-form-item>
-        <el-form-item label="制作时长" required>
-          <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1"></el-date-picker>
+        <el-form-item label="准备时长" prop="prepareTime">
+          <el-input v-model="form.prepareTime" placeholder="准备时长"></el-input>
+        </el-form-item>
+        <el-form-item label="预计成本" prop="price">
+          <el-input v-model="form.price" placeholder="预计成本">
+            <template slot="append">元</template>
+          </el-input>
         </el-form-item>
         <el-form-item label="材料" prop="delivery">
-          <el-switch v-model="ruleForm.delivery"></el-switch>
+          <el-switch v-model="form.delivery"></el-switch>
         </el-form-item>
-        <el-form-item label="步骤" prop="type">
-          <el-checkbox-group v-model="ruleForm.type">
+        <!-- <el-form-item label="步骤" prop="type">
+          <el-checkbox-group v-model="form.type">
             <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
             <el-checkbox label="地推活动" name="type"></el-checkbox>
             <el-checkbox label="线下主题活动" name="type"></el-checkbox>
             <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
           </el-checkbox-group>
+        </el-form-item> -->
+        <el-form-item label="简介" prop="desc">
+          <el-input type="textarea" v-model="form.desc" placeholder="简介"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">确认修改</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
+          <el-button type="primary" @click="submitForm('form')">确认修改</el-button>
+          <el-button @click="resetForm('form')">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -54,9 +67,12 @@
  * 新建菜谱
  */
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
+import myUpload from "@/components/UploadField.vue"
+import { addFood } from "@/api/food"
 export default {
   components: {
-    myBreadCrumb
+    myBreadCrumb,
+    myUpload
   },
   data() {
     return {
@@ -65,69 +81,25 @@ export default {
         { name: "个人中心", url: "/profile" },
         { name: "新建菜谱" }
       ],
-      ruleForm: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
+      form: {
+        foodname: "",
         delivery: false,
         type: [],
         resource: "",
         desc: ""
       },
-      rules: {
-        name: [
-          { required: true, message: "请输入活动名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
-        ],
-        region: [
-          { required: true, message: "请选择活动区域", trigger: "change" }
-        ],
-        date1: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择日期",
-            trigger: "change"
-          }
-        ],
-        date2: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择时间",
-            trigger: "change"
-          }
-        ],
-        type: [
-          {
-            type: "array",
-            required: true,
-            message: "请至少选择一个活动性质",
-            trigger: "change"
-          }
-        ],
-        resource: [
-          { required: true, message: "请选择活动资源", trigger: "change" }
-        ],
-        desc: [{ required: true, message: "请填写活动形式", trigger: "blur" }]
-      }
     };
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+      addFood(this.form).then(res=>{
+        console.log(res);
+      })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
+    },
+
   }
 };
 </script>

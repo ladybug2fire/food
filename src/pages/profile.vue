@@ -2,50 +2,29 @@
   <div>
     <div>
       <my-bread-crumb :routes="routes"/>
-      <el-form
-        size="small"
-        :model="ruleForm"
-        :rules="rules"
-        ref="ruleForm"
-        label-width="100px"
-        class="profile-edit"
-      >
-        <el-form-item label="昵称" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
+      <el-form size="small" :model="form" ref="form" label-width="100px" class="profile-edit">
+        <el-form-item label="昵称" prop="username">
+          <el-input v-model="form.username"></el-input>
         </el-form-item>
         <el-form-item label="性别" prop="resource">
-          <el-radio-group v-model="ruleForm.resource">
+          <el-radio-group v-model="form.sex">
             <el-radio label="男"></el-radio>
             <el-radio label="女"></el-radio>
             <el-radio label="保密"></el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="性别" prop="region">
-          <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
+        <el-form-item label="生日">
+          <el-date-picker type="date" placeholder="选择日期" v-model="form.birthday"></el-date-picker>
         </el-form-item>
-        <el-form-item label="生日" required>
-          <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1"></el-date-picker>
+        <el-form-item label="收获地址" prop="address">
+          <el-input placeholder="地址" v-model="form.address"></el-input>
         </el-form-item>
-        <el-form-item label="即时配送" prop="delivery">
-          <el-switch v-model="ruleForm.delivery"></el-switch>
-        </el-form-item>
-        <el-form-item label="活动性质" prop="type">
-          <el-checkbox-group v-model="ruleForm.type">
-            <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-            <el-checkbox label="地推活动" name="type"></el-checkbox>
-            <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-            <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-          </el-checkbox-group>
-        </el-form-item>
-        <el-form-item label="活动形式" prop="desc">
-          <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+        <el-form-item label="个人简介" prop="desc">
+          <el-input type="textarea" v-model="form.desc"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">确认修改</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
+          <el-button type="primary" @click="submitForm('form')">确认修改</el-button>
+          <el-button @click="resetForm('form')">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -54,6 +33,8 @@
 
 <script>
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
+import { updateUser } from "@/api/user";
+
 export default {
   components: {
     myBreadCrumb
@@ -65,69 +46,35 @@ export default {
         { name: "个人中心", url: "/profile" },
         { name: "基础信息" }
       ],
-      ruleForm: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
+      form: {
+        username: "",
+        birthday: "",
+        sex: "",
+        address: "",
         desc: ""
-      },
-      rules: {
-        name: [
-          { required: true, message: "请输入活动名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
-        ],
-        region: [
-          { required: true, message: "请选择活动区域", trigger: "change" }
-        ],
-        date1: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择日期",
-            trigger: "change"
-          }
-        ],
-        date2: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择时间",
-            trigger: "change"
-          }
-        ],
-        type: [
-          {
-            type: "array",
-            required: true,
-            message: "请至少选择一个活动性质",
-            trigger: "change"
-          }
-        ],
-        resource: [
-          { required: true, message: "请选择活动资源", trigger: "change" }
-        ],
-        desc: [{ required: true, message: "请填写活动形式", trigger: "blur" }]
       }
     };
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
+      updateUser(this.form).then(res=>{
+        let data = res.data;
+        this.$message({
+          message: data.msg,
+          type: data.code === 200 ? "success" : "error"
+        });
+        if(data.code === 200){
+          this.$store.commit('logInfo', this.form);
         }
-      });
+      })
+      console.log(this.form);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
+  },
+  mounted(){
+    this.form = this.$store.getters.userInfo;
   }
 };
 </script>
