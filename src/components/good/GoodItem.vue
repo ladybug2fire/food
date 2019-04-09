@@ -29,6 +29,7 @@ export default {
   },
   methods:{
     addGood(o){
+      this.$message.success('已加入菜篮子')
       this.$store.commit('addGood', {
         goodid: o._id,
         goodname: o.goodname,
