@@ -31,9 +31,7 @@ export default {
     addGood(o){
       this.$message.success('已加入菜篮子')
       this.$store.commit('addGood', {
-        goodid: o._id,
-        goodname: o.goodname,
-        picUrl: o.picUrl,
+        ...o,
         count: 1,
       })
     }
@@ -46,7 +44,7 @@ export default {
 }
 .time {
   font-size: 16px;
-  color: red;
+  color: #F56C6C;
   font-weight: bold;
 }
 .description{

@@ -2,7 +2,7 @@ export default {
   state: {
     userInfo: {
       username: '星期三的猫',
-      user: '123123'
+      _id: '123123'
     }
   },
   mutations: {
