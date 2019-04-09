@@ -2,12 +2,12 @@
   <div>
     <my-bread-crumb :routes="routes"/>
     <template v-for="item in goodlist">
-      <div :key="item.type" v-if="item.count > 0">
-        <img style="width:50px" src="../assets/img/huaha.png" alt="">
-        <span>{{item.type}}</span>
+      <div :key="item.goodid" v-if="item.count > 0">
+        <img style="width:50px" :src="HOST+item.picUrl" alt="">
+        <span>{{item.goodname}}</span>
         &nbsp; {{item.count}}
-        <el-button size="small" @click="modify(item.type, 1)">+</el-button>
-        <el-button size="small" @click="modify(item.type, -1)">-</el-button>
+        <el-button size="small" @click="modify(item, 1)">+</el-button>
+        <el-button size="small" @click="modify(item, -1)">-</el-button>
       </div>
     </template>
     <el-button type="primary" size="small" v-if="goodCount > 0">立减购买</el-button>
@@ -24,6 +24,7 @@
  */
 import GoodItem from "@/components/good/GoodItem";
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
+import {HOST} from '../../config/myconfig'
 export default {
   components: {
     myBreadCrumb,
@@ -39,14 +40,15 @@ export default {
   },
   data() {
     return {
+      HOST,
       routes: [{ name: "首页", url: "/home" }, { name: "菜篮子" }]
     };
   },
   methods: {
-    modify(type, count) {
+    modify(item, count) {
       this.$store.commit("addGood", {
-        type: type,
-        count: count
+        ...item,
+        count,
       });
     }
   }

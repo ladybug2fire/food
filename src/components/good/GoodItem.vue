@@ -1,13 +1,16 @@
 <template>
   <el-row>
-    <el-col :span="8" v-for="(o) in list" :key="o">
+    <el-col :span="8" v-for="(o) in list" :key="o._id">
       <el-card :body-style="{ padding: '0px'}" class="food-item">
-        <img src="../../assets/img/danhuang.jpg" class="image" @click="seeDetail">
+        <img :src="HOST+o.picUrl" class="image">
         <div style="padding: 14px;">
-          <span>好吃的汉堡</span>
+          <span>{{o.goodname}}</span>
+          <div class="description">
+            {{o.desc}}
+          </div>
           <div class="bottom clearfix">
-            <time class="time">{{ currentDate }}</time>
-            <el-button type="text" class="button" @click="addGood">立即购买</el-button>
+            <time class="time">¥ {{ o.price }}</time>
+            <el-button type="text" class="button" @click="addGood(o)">加入菜篮子</el-button>
           </div>
         </div>
       </el-card>
@@ -15,33 +18,39 @@
   </el-row>
 </template>
 <script>
+import {HOST} from '../../../config/myconfig'
 export default {
   props:['list'],
   data(){
     return {
+      HOST,
       currentDate: new Date(),
     }
   },
   methods:{
-    seeDetail(){
-      this.$router.replace('/detail')
-    },
-    addGood(){
+    addGood(o){
       this.$store.commit('addGood', {
-        type: 'he',
+        goodid: o._id,
+        goodname: o.goodname,
+        picUrl: o.picUrl,
         count: 1,
       })
     }
   }
 };
 </script>
-<style>
+<style lang="less" scoped>
 .food-item{
   margin: 10px;
 }
 .time {
-  font-size: 13px;
-  color: #999;
+  font-size: 16px;
+  color: red;
+  font-weight: bold;
+}
+.description{
+  font-size: 12px;
+  color: #909399;
 }
 
 .bottom {

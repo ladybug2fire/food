@@ -1,7 +1,8 @@
 export default {
   state: {
     userInfo: {
-      username: '星期三的猫'
+      username: '星期三的猫',
+      user: '123123'
     }
   },
   mutations: {
@@ -15,6 +16,9 @@ export default {
   actions: {
   },
   getters: {
+    userid (state) {
+      return state.userInfo._id
+    },
     username (state) {
       return state.userInfo.username
     },

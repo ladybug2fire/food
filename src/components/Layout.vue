@@ -26,5 +26,6 @@ export default {
 <style lang="less" scoped>
 .main-section{
   padding: 0 10vw;
+  padding-bottom: 50px;
 }
 </style>

@@ -1,17 +1,12 @@
 import _ from 'lodash'
 export default {
   state: {
-    goodlist: [
-      {
-        type: 'huajiao',
-        count: 2
-      }
-    ]
+    goodlist: []
   },
   mutations: {
     addGood (state, payload) {
       let goodlist = state.goodlist
-      let find = goodlist.find(e => e.type === payload.type)
+      let find = goodlist.find(e => e.goodid === payload.goodid)
       if (find) {
         let newCount = find.count + payload.count
         find.count = newCount >= 0 ? newCount : 0

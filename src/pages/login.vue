@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h2>经常登录的同志是好同志</h2>
     <el-row type="flex" justify="center">
       <el-col :span="8">
+        <h2>经常登录的同志是好同志</h2>
         <el-form ref="form" :model="form" label-width="80px" size="small">
           <el-form-item label="用户名">
             <el-input v-model="form.username"></el-input>
           </el-form-item>
           <el-form-item label="密码">
-            <el-input v-model="form.password"></el-input>
+            <el-input v-model="form.password" show-password></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">登录</el-button>
@@ -40,8 +40,8 @@ export default {
         });
         if(data.code === 200){
           this.$store.commit('logInfo', data.data);
+          this.$router.replace('/home')
         }
-        this.$router.replace('/home')
       });
     }
   }
