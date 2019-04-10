@@ -8,7 +8,7 @@
             <span>{{o.foodname}}</span>
             <div class="bottom clearfix">
               <time class="time">{{ o.addTime }}</time>
-              <el-button type="text" class="button">查看详情</el-button>
+              <el-button type="text" class="button" @click="seeDetail(o)">查看详情</el-button>
             </div>
           </div>
         </el-card>
@@ -23,7 +23,6 @@ export default {
   data() {
     return {
       HOST,
-      currentDate: new Date()
     };
   },
   methods: {

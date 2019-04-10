@@ -3,7 +3,7 @@
     <my-bread-crumb :routes="routes"/>
     <div class="detail-left">
       <h1>{{foodInfo.foodname}}</h1>
-      <el-button size="small">收藏</el-button>
+      <el-button size="small" @click="addMenu" v-if="username" :disabled="isFavor">{{isFavor?'已收藏':'收藏'}}</el-button>
       <el-row>
         <el-col :span="16">
           <div v-if="foodInfo">
@@ -40,17 +40,17 @@
 
       <div class="review-block" v-if="username">
         <h4>评论</h4>
-        <el-rate v-model="myrate" show-score></el-rate>
-        <el-input
-          type="textarea"
-          class="review-area"
-          v-model="myreview"
-          placeholder="说说你的看法"
-          name="review"
-        />
-        <div class="publish-btn">
-          <el-button type="primary" @click="submitData()">发布</el-button>
-        </div>
+          <el-rate v-model="myrate" show-score></el-rate>
+          <el-input
+            type="textarea"
+            class="review-area"
+            v-model="myreview"
+            placeholder="说说你的看法"
+            name="review"
+          />
+          <div class="publish-btn">
+            <el-button type="primary" @click="submitData()">发布</el-button>
+          </div>
       </div>
     </div>
   </div>
@@ -64,6 +64,8 @@ import { HOST } from "../../config/myconfig";
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
 import { getFood } from "@/api/food";
 import { publish, list } from "@/api/review";
+import { addFood, getMyMenus } from "@/api/menu";
+
 import Review from "@/components/Review";
 import _ from "lodash";
 
@@ -83,7 +85,8 @@ export default {
       foodInfo: {},
       reviews: null,
       myreview: null,
-      myrate: null
+      myrate: null,
+      isFavor: false,
     };
   },
   computed: {
@@ -106,6 +109,7 @@ export default {
           this.$set(this, "foodInfo", data.data);
           this.$nextTick(() => {
             this.getReviews();
+            this.myFavor(_.get(data, 'data._id'));
           });
         }
       });
@@ -120,6 +124,7 @@ export default {
       });
     },
     submitData() {
+      if(!this.myreview)return;
       publish({
         username: this.username,
         userid: this.userid,
@@ -129,12 +134,42 @@ export default {
       }).then(res => {
         let data = res.data;
         if (data.code === 200) {
-          this.$message("发布成功");
+          this.$message.success("发布成功");
+          this.myreview = null;
+          this.myrate = 0;
           this.getReviews();
         } else {
           this.$message.error("发布失败:" + data.msg);
         }
       });
+    },
+    addMenu(){
+      addFood({
+        id: this.userid,
+        food: this.foodInfo,
+      }).then(response=>{
+        let res = response.data;
+        if(res.code == 200){
+          this.$message.success('收藏成功')
+          this.$set(this, 'isFavor', true);
+        }else{
+          this.$message.success('添加失败')
+        }
+      })
+    },
+    myFavor(goodid){
+      getMyMenus({
+        params:{id: this.userid}
+      }).then(res=>{
+        let foods = _.get(res, 'data.data.0.foods');
+        console.log(goodid, _.find(foods, e=>e._id === goodid))
+        if(_.find(foods, e=>e._id === goodid)){
+          console.log('is favor')
+          this.$set(this, 'isFavor' , true);
+        }else{
+          this.$set(this, 'isFavor' , false);
+        }
+      }) 
     }
   },
   mounted() {

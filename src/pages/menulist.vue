@@ -1,10 +1,11 @@
 <template>
   <div>
     <my-bread-crumb :routes="routes"/>
-    <el-button type="primary" size="small" @click="createNew">创建新菜单</el-button>
-    <div class="favor-container" @click="jumpDetail">
-      <menu-group></menu-group>
-    </div>
+    <template v-for="menu in menus">
+      <div class="favor-container" @click="jumpDetail(menu._id)" :key="menu._id">
+        <menu-group :data="menu"></menu-group>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -14,6 +15,7 @@
  */
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
 import menuGroup from "@/components/MenuGroup"
+import {allMenu} from '@/api/menu'
 export default {
   components: {
     myBreadCrumb,
@@ -25,17 +27,24 @@ export default {
         { name: "首页", url: "/home" },
         { name: "个人中心", url: "/profile" },
         { name: "我的菜单" }
-      ]
+      ],
+      menus: [],
     };
   },
   methods:{
-    jumpDetail(){
-      this.$router.replace('/favordetail')
+    jumpDetail(id){
+      this.$router.push({path: '/favordetail',query: {id}})
     },
     createNew(){
       
     }
+  },
+  mounted(){
+    allMenu().then(res=>{
+      if(res.data.code === 200)this.$set(this, 'menus', res.data.data)
+    })
   }
+
 };
 </script>
 

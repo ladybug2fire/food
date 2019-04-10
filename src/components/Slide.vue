@@ -1,12 +1,20 @@
 <template>
   <el-carousel :interval="5000" arrow="always" height="300px" type="card">
-    <el-carousel-item v-for="item in 4" :key="item">
-      <img src="../assets/img/danhuang.jpg">
+    <el-carousel-item v-for="(item,i) in data" :key="item+i">
+      <img :src="HOST + item" />
     </el-carousel-item>
   </el-carousel>
 </template>
 <script>
-export default {};
+import {HOST} from '../../config/myconfig'
+export default {
+  props:['data'],
+  data() {
+    return {
+      HOST,
+    };
+  },
+};
 </script>
 <style>
 .el-carousel__item h3 {

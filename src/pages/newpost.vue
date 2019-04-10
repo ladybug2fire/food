@@ -9,13 +9,13 @@
         label-width="100px"
         class="profile-edit"
       >
-        <el-form-item label="菜名" prop="foodname">
+        <el-form-item label="菜名" prop="foodname" required>
           <el-input v-model="form.foodname"></el-input>
         </el-form-item>
-        <el-form-item label="头图">
+        <el-form-item label="头图" required>
           <my-upload :model="form" prop="picUrl" />
         </el-form-item>
-        <el-form-item label="难度" prop="diffculty">
+        <el-form-item label="难度" prop="diffculty" required>
           <el-radio-group v-model="form.diffculty">
             <el-radio label="困难"></el-radio>
             <el-radio label="容易"></el-radio>
@@ -28,20 +28,20 @@
             <el-option label="区域二" value="beijing"></el-option>
           </el-select>
         </el-form-item> -->
-        <el-form-item label="制作时长" prop="cookTime">
+        <el-form-item label="制作时长" prop="cookTime" required>
           <el-input v-model="form.cookTime" placeholder="制作时长"></el-input>
         </el-form-item>
-        <el-form-item label="准备时长" prop="prepareTime">
+        <el-form-item label="准备时长" prop="prepareTime" required>
           <el-input v-model="form.prepareTime" placeholder="准备时长"></el-input>
         </el-form-item>
-        <el-form-item label="预计成本" prop="price">
+        <el-form-item label="预计成本" prop="price" required>
           <el-input v-model="form.price" placeholder="预计成本">
             <template slot="append">元</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="材料" prop="delivery">
+        <!-- <el-form-item label="材料" prop="delivery">
           <el-switch v-model="form.delivery"></el-switch>
-        </el-form-item>
+        </el-form-item> -->
         <!-- <el-form-item label="步骤" prop="type">
           <el-checkbox-group v-model="form.type">
             <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
@@ -54,8 +54,8 @@
           <el-input type="textarea" v-model="form.desc" placeholder="简介"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('form')">确认修改</el-button>
-          <el-button @click="resetForm('form')">重置</el-button>
+          <el-button type="primary" @click="submitForm('form')">发布</el-button>
+          <!-- <el-button @click="resetForm('form')">重置</el-button> -->
         </el-form-item>
       </el-form>
     </div>
@@ -92,8 +92,19 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      addFood(this.form).then(res=>{
-        console.log(res);
+      this.$refs.form.validate((valid)=>{
+        if(valid){
+          addFood(this.form).then(res=>{
+            if(res.data.code === 200){
+              this.$notify.success('发布成功')
+              setTimeout(() => {
+                this.$router.push('/home')
+              }, 0);
+            }else{
+              this.$notify.error('错误了')
+            }
+          })
+        }
       })
     },
     resetForm(formName) {

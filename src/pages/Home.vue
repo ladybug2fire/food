@@ -1,7 +1,7 @@
 <template>
   <div>
       <div class="slide-container">
-        <slide />
+        <slide :data="imgList"/>
       </div>
       <div class="card-container">
         <h2 class="section-title">新秀菜谱</h2>
@@ -25,6 +25,11 @@ import {getList} from '@/api/food'
     data(){
       return {
         list: [],
+      }
+    },
+    computed:{
+      imgList(){
+        return this.list.map(e=>e.picUrl).slice(0,4);
       }
     },
     methods:{
