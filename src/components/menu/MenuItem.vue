@@ -98,7 +98,9 @@ export default {
     font-size: 16px;
     font-weight: bold;
     color: #c0ae7d;
-    pointer-events: none;
+    &:hover{
+      color: goldenrod;
+    }
   }
   .children {
     padding: 0 20px;

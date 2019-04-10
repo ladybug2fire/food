@@ -29,7 +29,7 @@ export default {
   },
   methods:{
     addGood(o){
-      this.$message.success('已加入菜篮子')
+      this.$notify.success('已加入菜篮子')
       this.$store.commit('addGood', {
         ...o,
         count: 1,
