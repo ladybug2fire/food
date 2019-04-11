@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed-cart" @click="jumpCart">
+    <div class="fixed-cart" @click="jumpCart" v-if="username">
         <el-badge :value="goodcount" class="item-badge">
             <i class="el-icon-goods icon-btn"></i>
         </el-badge>
@@ -11,6 +11,9 @@
         computed:{
             goodcount(){
                 return this.$store.getters.goodcount;
+            },
+            username(){
+                return this.$store.getters.username;
             }
         },
         methods:{

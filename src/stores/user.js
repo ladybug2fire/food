@@ -1,8 +1,6 @@
 export default {
   state: {
     userInfo: {
-      username: '星期三的猫',
-      _id: '123123'
     }
   },
   mutations: {

@@ -10,7 +10,7 @@
           </div>
           <div class="bottom clearfix">
             <time class="time">¥ {{ o.price }}</time>
-            <el-button type="text" class="button" @click="addGood(o)">加入菜篮子</el-button>
+            <el-button type="text" class="button" @click="addGood(o)" v-if="username">加入菜篮子</el-button>
           </div>
         </div>
       </el-card>
@@ -25,6 +25,11 @@ export default {
     return {
       HOST,
       currentDate: new Date(),
+    }
+  },
+  computed:{
+    username(){
+      return this.$store.getters.username;
     }
   },
   methods:{
