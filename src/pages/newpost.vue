@@ -134,7 +134,11 @@ export default {
     submitForm(formName) {
       this.$refs.form.validate((valid)=>{
         if(valid){
-          addFood(this.form).then(res=>{
+          addFood({
+            ...this.form, 
+            username: this.$store.getters.username,
+            userid: this.$store.getters.userid,
+            }).then(res=>{
             if(res.data.code === 200){
               this.$notify.success('发布成功')
               setTimeout(() => {
