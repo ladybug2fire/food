@@ -5,7 +5,7 @@
       <div v-for="g in groups" :key="g.label">
         <div class="title">{{g.label}}</div>
         <div class="children">
-          <div class="type" v-for="tag in g.children" :key="tag">{{tag}}</div>
+          <div class="type" v-for="tag in g.children" :key="tag" @click="filterTag(tag)">{{tag}}</div>
         </div>
       </div>
     </div>
@@ -14,17 +14,21 @@
 
 <script>
 export default {
-  props: ["title", "active"],
+  props: ["title", "active", "groups"],
   data() {
     return {
       hoverable: false,
-      groups: [
-        {
-          label: "家常菜",
-          children: ["凉菜", "家常菜", "素食", "冷菜", "海鲜", "甜点", "面食"]
-        },
-      ]
     };
+  },
+  methods:{
+    filterTag(tag){
+      this.$router.push({
+        path: '/favordetail',
+        query:{
+          tag,
+        }
+      })
+    }
   }
 };
 </script>
@@ -46,9 +50,7 @@ export default {
     font-size: 16px;
     font-weight: bold;
     color: #c0ae7d;
-    &:hover{
-      color: goldenrod;
-    }
+    pointer-events: none;
   }
   .children {
     padding: 0 20px;

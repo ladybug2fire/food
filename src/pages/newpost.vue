@@ -22,6 +22,36 @@
             <el-radio label="一般"></el-radio>
           </el-radio-group>
         </el-form-item>
+        <el-form-item label="菜谱分类" prop="foodtag" required>
+          <el-select v-model="form.foodtag" placeholder="请选择">
+            <el-option-group
+              v-for="group in foodoptions"
+              :key="group.label"
+              :label="group.label">
+              <el-option
+                v-for="item in group.children"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
+            </el-option-group>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="健康分类" prop="diettag" required>
+          <el-select v-model="form.diettag" placeholder="请选择">
+            <el-option-group
+              v-for="group in dietoptions"
+              :key="group.label"
+              :label="group.label">
+              <el-option
+                v-for="item in group.children"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
+            </el-option-group>
+          </el-select>
+        </el-form-item>
         <!-- <el-form-item label="标签" prop="region">
           <el-select v-model="form.region" placeholder="请选择活动区域">
             <el-option label="区域一" value="shanghai"></el-option>
@@ -86,9 +116,19 @@ export default {
         delivery: false,
         type: [],
         resource: "",
-        desc: ""
+        desc: "",
+        diettags: null,
+        foodtags: null,
       },
     };
+  },
+  computed:{
+    foodoptions(){
+      return this.$store.getters.foodoptions;
+    },
+    dietoptions(){
+      return this.$store.getters.dietoptions;
+    }
   },
   methods: {
     submitForm(formName) {
@@ -101,7 +141,7 @@ export default {
                 this.$router.push('/home')
               }, 0);
             }else{
-              this.$notify.error('错误了')
+              this.$notify.error({title:'错误了', message:res.data.msg})
             }
           })
         }

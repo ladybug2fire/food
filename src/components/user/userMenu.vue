@@ -37,6 +37,10 @@ export default {
           url: "/shopcart"
         },
         {
+          label: "我的发布",
+          url: "/minepub"
+        },
+        {
           label: "退出",
           url: "/logout"
         }
@@ -48,7 +52,15 @@ export default {
       if (url === "/logout") {
         this.$store.commit('logout')
         this.$router.replace('/home')
-      } else {
+      } else if(url === '/minepub'){
+        this.$router.push({
+          path: 'favordetail',
+          query: {
+            tag: this.username,
+          }
+        })
+      }
+      else {
         this.$router.replace(url);
       }
     }

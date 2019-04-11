@@ -24,8 +24,12 @@
           <b>操作难度:</b>
           {{foodInfo.diffculty}}
           <br>
-          <b>标签:</b>
+          <b>烹饪时间:</b>
           {{foodInfo.cookTime}}
+          <br>
+          <b>分类:</b>
+          <el-tag type="warning" v-if="foodInfo.diettag">{{foodInfo.diettag}}</el-tag>
+          <el-tag type="danger" v-if="foodInfo.foodtag">{{foodInfo.foodtag}}</el-tag>
         </el-col>
       </el-row>
       <h1>评论区</h1>

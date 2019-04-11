@@ -8,6 +8,7 @@
             <span>{{o.foodname}}</span>
             <div class="bottom clearfix">
               <time class="time">{{ o.addTime }}</time>
+              <time class="time">{{ o.username }}</time>
               <el-button type="text" class="button" @click="seeDetail(o)">查看详情</el-button>
             </div>
           </div>

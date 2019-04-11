@@ -15,3 +15,7 @@ export const getFood = function (params) {
 export const getList = function (params) {
   return axios.get(`${HOST}/api/food/`, params)
 }
+
+export const searchFood = function (params) {
+  return axios.get(`${HOST}/api/food/search`, params)
+}

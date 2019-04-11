@@ -5,7 +5,7 @@
         <img src="../assets/logo.png" alt>
       </router-link>
     </div>
-    <el-input class="search-input" placeholder="请输入菜谱/食材/菜单/作者">
+    <el-input class="search-input" v-model="condition" placeholder="请输入菜谱/食材/菜单/作者">
       <template slot="append">
         <div @click="search">搜索</div>
       </template>
@@ -28,9 +28,15 @@
 
 <script>
 import userMenu from '@/components/user/userMenu'
+import {searchFood} from '@/api/food'
 export default {
   components:{
     userMenu,
+  },
+  data(){
+    return {
+      condition: null,
+    }
   },
   computed: {
     username() {
@@ -39,7 +45,12 @@ export default {
   },
   methods: {
     search() {
-      console.log("do search");
+      this.$router.push({
+        path: '/favordetail',
+        query:{
+          tag: this.condition
+        }
+      })
     },
   }
 };
