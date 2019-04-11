@@ -83,6 +83,9 @@
         <el-form-item label="简介" prop="desc">
           <el-input type="textarea" v-model="form.desc" placeholder="简介"></el-input>
         </el-form-item>
+         <el-form-item label="步骤" prop="desc">
+          <div id="editor"></div>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('form')">发布</el-button>
           <!-- <el-button @click="resetForm('form')">重置</el-button> -->
@@ -99,6 +102,8 @@
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
 import myUpload from "@/components/UploadField.vue"
 import { addFood } from "@/api/food"
+import E from 'wangeditor'
+import {HOST} from '../../config/myconfig'
 export default {
   components: {
     myBreadCrumb,
@@ -120,6 +125,7 @@ export default {
         diettags: null,
         foodtags: null,
       },
+      editor: null
     };
   },
   computed:{
@@ -132,12 +138,14 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      console.log(this.editor.txt.html())
       this.$refs.form.validate((valid)=>{
         if(valid){
           addFood({
             ...this.form, 
             username: this.$store.getters.username,
             userid: this.$store.getters.userid,
+            detail: this.editor.txt.html()
             }).then(res=>{
             if(res.data.code === 200){
               this.$notify.success('发布成功')
@@ -154,14 +162,47 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-
+  },
+  mounted(){
+    var editor = new E('#editor')
+    editor.customConfig.uploadImgServer = HOST+'/api/food/upload'
+    editor.customConfig.uploadFileName = 'file'
+    editor.customConfig.uploadImgHooks = {
+      customInsert: function (insertImg, result, editor) {
+        // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+        // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+        // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+        var url = HOST+ result.data
+        insertImg(url)
+      }
+    }
+    editor.customConfig.menus = [
+        'head',  // 标题
+        'bold',  // 粗体
+        'fontSize',  // 字号
+        'italic',  // 斜体
+        'underline',  // 下划线
+        'strikeThrough',  // 删除线
+        'foreColor',  // 文字颜色
+        'backColor',  // 背景颜色
+        'link',  // 插入链接
+        'list',  // 列表
+        'justify',  // 对齐方式
+        'quote',  // 引用
+        'image',  // 插入图片
+        'video',  // 插入视频
+        'undo',  // 撤销
+        'redo'  // 重复
+    ]
+    this.editor = editor;
+    editor.create()
   }
 };
 </script>
 
 <style lang="less" scoped>
 .profile-edit {
-  width: 50vw;
+  // width: 50vw;
   text-align: left;
 }
 </style>

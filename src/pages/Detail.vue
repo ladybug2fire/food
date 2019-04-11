@@ -9,6 +9,8 @@
         <el-col :span="16">
           <div v-if="foodInfo">
             <img :src="HOST+foodInfo.picUrl" alt>
+            <h1 class="subject">详细步骤</h1> 
+            <div v-html="foodInfo.detail"></div>
           </div>
         </el-col>
         <el-col :span="8" class="info">
@@ -33,7 +35,7 @@
           <el-tag type="danger" v-if="foodInfo.foodtag">{{foodInfo.foodtag}}</el-tag>
         </el-col>
       </el-row>
-      <h1>评论区</h1>
+      <h1 class="subject">评论区</h1>
       <template v-if="!reviews || reviews.length ===0 ">
         <div style="color: #606266">这里空空如也，快来占沙发吧～</div>
       </template>
@@ -191,6 +193,10 @@ export default {
     margin-top: 20px;
     width: 100%;
   }
+}
+.subject{
+  border-left: 5px solid #B4010F;
+  padding-left: 5px;
 }
 .food-detail {
   .info {
