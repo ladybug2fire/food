@@ -4,6 +4,7 @@
     <div class="detail-left">
       <h1>{{foodInfo.foodname}}</h1>
       <div>{{foodInfo.username}}</div>
+      <div>{{foodInfo.desc}}</div>
       <el-button size="small" @click="addMenu" v-if="username" :disabled="isFavor">{{isFavor?'已收藏':'收藏'}}</el-button>
       <el-row>
         <el-col :span="16">
