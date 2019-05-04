@@ -8,10 +8,11 @@
           <div class="description">
             {{o.desc}}
           </div>
-          <div class="bottom clearfix">
-            <time class="time">¥ {{ o.price }}</time>
-            <el-button type="text" class="button" @click="addGood(o)" v-if="username">加入菜篮子</el-button>
+          <div class="bottom">
+            <div class="price">¥ {{ o.price }}</div>
+            <div class="remain">库存:{{o.amount}}</div>
           </div>
+          <el-button type="text" class="button" @click="addGood(o)" v-if="username">加入菜篮子</el-button>
         </div>
       </el-card>
     </el-col>
@@ -28,12 +29,20 @@ export default {
     }
   },
   computed:{
+    goodlist() {
+      return this.$store.getters.goodlist;
+    },
     username(){
       return this.$store.getters.username;
     }
   },
   methods:{
     addGood(o){
+      const found = this.goodlist.find(e=>e._id === o._id)
+      if(found && found.count >= found.amount){
+        this.$message.error('库存不够了')
+        return;
+      }
       this.$notify.success('已加入菜篮子')
       this.$store.commit('addGood', {
         ...o,
@@ -47,7 +56,7 @@ export default {
 .food-item{
   margin: 10px;
 }
-.time {
+.price {
   font-size: 16px;
   color: #F56C6C;
   font-weight: bold;
@@ -59,11 +68,18 @@ export default {
 
 .bottom {
   margin-top: 13px;
+  display: flex;
+  flex-direction: row;
   line-height: 12px;
+  justify-content: space-between;
+  .remain{
+    font-size: 10px;
+    color: #909399;
+  }
 }
 
 .button {
-  padding: 0;
+  padding: 10px 0;
   float: right;
 }
 
@@ -73,15 +89,5 @@ export default {
   object-fit: cover;
   height: 150px;
   cursor: pointer;
-}
-
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
-
-.clearfix:after {
-  clear: both;
 }
 </style>
