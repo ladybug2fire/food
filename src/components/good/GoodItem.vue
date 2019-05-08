@@ -39,7 +39,7 @@ export default {
   methods:{
     addGood(o){
       const found = this.goodlist.find(e=>e._id === o._id)
-      if(found && found.count >= found.amount){
+      if(found && found.count >= found.amount || o.amount < 1){
         this.$message.error('库存不够了')
         return;
       }

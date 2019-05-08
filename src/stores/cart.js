@@ -9,8 +9,10 @@ export default {
       let find = goodlist.find(e => e._id === payload._id)
       if (find) {
         let newCount = find.count + payload.count
+        if (newCount > find.amount) return
         find.count = newCount >= 0 ? newCount : 0
       } else {
+        if (payload.amount < 1) return
         state.goodlist.push(payload)
       }
     },

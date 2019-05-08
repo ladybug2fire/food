@@ -77,6 +77,13 @@ export default {
       });
     },
     doBuy() {
+      const invalid = _.find(this.goodlist, e=>{
+        return e.amount < e.count
+      })
+      if(invalid){
+        this.$message.error(invalid.goodname+'库存不足');
+        return;
+      }
       let goods = _.map(_.cloneDeep(this.goodlist), e => {
         e.goodid = e._id;
         delete e._id;
